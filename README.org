@@ -36,6 +36,7 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
    1. Use fdisk to partition the SD card:
       ~fdisk /dev/sdX~
    2. At the fdisk prompt, delete old partitions and create a new one:
+
       a. Type o. This will clear out any partitions on the drive.
       b. Type p to list partitions. There should be no partitions left.
       c. Type n, then p for primary, 1 for the first partition on the drive,
@@ -45,6 +46,7 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
       e. Type n, then p for primary, 2 for the second partition on the drive,
          and then press ENTER twice to accept the default first and last sector.
       f. Write the partition table and exit by typing w.
+
    3. Create and mount the FAT file system:
       #+BEGIN_SRC 
       mkfs.vfat /dev/sdX1
