@@ -110,13 +110,18 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
 ** Install yay
    Using ~yay~ it does not matter if the dependencies come from core or aur.
 
-
    ~yay -S pkg-config libjpeg libtiff libpng jasper ffmpeg libx264 cairo gdk-pixbuf pango gtk2 gtk-3lapack hdf5~
 
 
-* Python virtualenv
+* Prepare Python virtualenv
 
-  ~pip install "picamera[array]"~
+  I like to keep virtualens in ~~/.virtualenvs~:
+
+  #+BEGIN_SRC 
+  python -m venv ~/.virtualenvs/cv
+  source ~/.virtualenvs/cv/bin/activate
+  pip install "picamera[array]"
+  #+END_SRC 
 
 * Build OpenCV
 
