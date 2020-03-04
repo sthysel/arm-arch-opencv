@@ -1,4 +1,10 @@
-#+title: Building OpenCV 4.2.0 On Arch Arm for the Raspberry Pi 4 
+#+title: OpenCV 4.2.0 On Arch Arm for the Raspberry Pi 4 
+
+Notes describing how to build a Pi4 optimized OpenCV 4.2.0+ on Arch for Arm on a
+Raspberry Pi. Most all of the below can and may be scripted, there may be helper
+scripts or playbooks later on.
+
+* Installing Arch on the Pi4
 
 By the way I use Arch Arm Linux on my Raspberry Pi's.
 
@@ -8,8 +14,7 @@ It is:
 - Not Raspian
 - Performant
 - In line with all my other machine in the lab and house
-
-* Installing Arch on the Pi4
+- meme rich and zoomer approved
 
 Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm]], specifically [[https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4][Raspberry Pi 4]]
 
@@ -99,3 +104,18 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
         pacman-key --populate archlinuxarm
         #+END_SRC
 
+* Prepare build environment
+
+** Install core system dependencies  
+   ~pacman -S base-devel git nvim wget unzip~
+
+** Install yay
+   Using ~yay~ it does not matter if the dependencies come from core or aur.
+
+
+   yay -S pkg-config libjpeg libtiff libpng jasper ffmpeg libx264 cairo gdk-pixbuf pango gtk2 gtk-3lapack hdf5
+
+
+* Python virtualenv
+
+  pip install "picamera[array]"
