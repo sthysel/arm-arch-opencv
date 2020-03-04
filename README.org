@@ -36,17 +36,15 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
    1. Use fdisk to partition the SD card:
       ~fdisk /dev/sdX~
    2. At the fdisk prompt, delete old partitions and create a new one:
-
-      a. Type o. This will clear out any partitions on the drive.
-      b. Type p to list partitions. There should be no partitions left.
-      c. Type n, then p for primary, 1 for the first partition on the drive,
-         press ENTER to accept the default first sector, then type +100M for the
-         last sector.
-      d. Type t, then c to set the first partition to type W95 FAT32 (LBA).
-      e. Type n, then p for primary, 2 for the second partition on the drive,
-         and then press ENTER twice to accept the default first and last sector.
-      f. Write the partition table and exit by typing w.
-
+      - Type o. This will clear out any partitions on the drive.
+      - Type p to list partitions. There should be no partitions left.
+      - Type n, then p for primary, 1 for the first partition on the drive,
+      - press ENTER to accept the default first sector, then type +100M for the
+      - last sector.
+      - Type t, then c to set the first partition to type W95 FAT32 (LBA).
+      - Type n, then p for primary, 2 for the second partition on the drive,
+      - and then press ENTER twice to accept the default first and last sector.
+      - Write the partition table and exit by typing w.
    3. Create and mount the FAT file system:
       #+BEGIN_SRC 
       mkfs.vfat /dev/sdX1
@@ -73,9 +71,9 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
    9. Use the serial console or SSH to the IP address given to the board by your router.
       - Login as the default user alarm with the password alarm.
       - The default root password is root.
-   1. Initialize the pacman keyring and populate the Arch Linux ARM package signing keys:
-      #+BEGIN_SRC 
+   10. Initialize the pacman keyring and populate the Arch Linux ARM package signing keys:
+       #+BEGIN_SRC 
        pacman-key --init
        pacman-key --populate archlinuxarm
-     #+END_SRC
+       #+END_SRC
 
