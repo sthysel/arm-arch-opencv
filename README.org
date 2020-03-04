@@ -1,0 +1,79 @@
+#+title: Building OpenCV 4.2.0 On Arch Arm for the Raspberry Pi 4 
+
+By the way I use Arch Arm Linux on my Raspberry Pi's.
+
+It is:
+- Tight
+- Arch
+- Not Raspian
+- Performant
+- In line with all my other machine in the lab and house
+
+* Installing Arch on the Pi4
+
+Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm]], specifically [[https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4][Raspberry Pi 4]]
+
+ #+caption: Raspberry Pi 4 
+ [[file:pics/image.png]]
+
+** Install Arch on the Pi 4
+
+   Below are lifted from the [[https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4][armv8/broadcom]] page on the Arch Arm wiki
+
+   The Raspberry Pi 4 has higher power requirements than the Raspberry
+   Pi 3. A power supply rated at 3A is the official recommendation. Using an
+   insufficient power supply will result in random, inexplicable errors and
+   file system corruption.
+
+   Early variants of the Raspberry Pi 4's USB Type-C power port is not compliant
+   with the USB Type-C specification, and it will not be able to be powered by
+   supplies that are compliant.
+
+** Installation
+   Replace sdX in the following instructions with the device name for the SD
+   card as it appears on your computer.
+
+   1. Use fdisk to partition the SD card:
+      ~fdisk /dev/sdX~
+   2. At the fdisk prompt, delete old partitions and create a new one:
+      a. Type o. This will clear out any partitions on the drive.
+      b. Type p to list partitions. There should be no partitions left.
+      c. Type n, then p for primary, 1 for the first partition on the drive,
+         press ENTER to accept the default first sector, then type +100M for the
+         last sector.
+      d. Type t, then c to set the first partition to type W95 FAT32 (LBA).
+      e. Type n, then p for primary, 2 for the second partition on the drive,
+         and then press ENTER twice to accept the default first and last sector.
+      f. Write the partition table and exit by typing w.
+   3. Create and mount the FAT file system:
+      #+BEGIN_SRC 
+      mkfs.vfat /dev/sdX1
+      mkdir boot
+      mount /dev/sdX1 boot
+      #+END_SRC
+   4. Create and mount the ext4 file system:
+      #+BEGIN_SRC 
+      mkfs.ext4 /dev/sdX2
+      mkdir root
+      mount /dev/sdX2 root
+      #+END_SRC
+   5. Download and extract the root file system (as root, not via sudo):
+      #+BEGIN_SRC 
+      wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-4-latest.tar.gz
+      bsdtar -xpf ArchLinuxARM-rpi-4-latest.tar.gz -C root
+      sync
+      #+END_SRC 
+   6. Move boot files to the first partition:
+      ~mv root/boot/* boot~
+   7. Unmount the two partitions:
+      ~umount boot root~
+   8. Insert the SD card into the Raspberry Pi, connect ethernet, and apply 5V power.
+   9. Use the serial console or SSH to the IP address given to the board by your router.
+      - Login as the default user alarm with the password alarm.
+      - The default root password is root.
+   1. Initialize the pacman keyring and populate the Arch Linux ARM package signing keys:
+      #+BEGIN_SRC 
+       pacman-key --init
+       pacman-key --populate archlinuxarm
+     #+END_SRC
+
