@@ -131,14 +131,15 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
 * Build OpenCV
 
 ** Get the source
-  #+BEGIN_SRC 
-  wget -O opencv.zip https://github.com/opencv/opencv/archive/4.2.0.zip
-  unzip opencv.zip 
-  mv opencv-4.2.0 opencv
-  wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.2.0.zip
-  unzip opencv_contrib.zip
-  mv opencv_contrib-4.2.0 opencv_contrib
-  #+END_SRC 
+   
+   #+BEGIN_SRC 
+   wget -O opencv.zip https://github.com/opencv/opencv/archive/4.2.0.zip
+   unzip opencv.zip 
+   mv opencv-4.2.0 opencv
+   wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.2.0.zip
+   unzip opencv_contrib.zip
+   mv opencv_contrib-4.2.0 opencv_contrib
+   #+END_SRC 
 
 ** prepare the build
    Set some OpenCV build flags
@@ -181,6 +182,16 @@ Be sure to use the correct image from [[https://archlinuxarm.org][Arch Linux Arm
   >>> cv2.__version__
   '4.2.0'
   #+END_SRC
- 
 
+* Camera setup 
+** Enable camera
+
+   ~/boot/config.txt~ should look like below
+   #+BEGIN_VERBATIM
+   initramfs initramfs-linux.img followkernel
+   gpu_mem=128 start_file=start_x.elf fixup_file=fixup_x.dat
+   start_x=1
+   #+END_VERBATIM
+
+  Display camera footage: ~/opt/vc/bin/raspivid --fullscreen --vflip --timeout 0~
 
